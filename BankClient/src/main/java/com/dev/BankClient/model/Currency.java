@@ -8,7 +8,16 @@ public class Currency {
     private UUID accountId;
     private UUID customerId;
     private double balance;
+    private String name;
     public Currency() {
+    }
+
+    public Currency(int id, UUID accountId, UUID customerId, double balance, String name) {
+        this.id = id;
+        this.accountId = accountId;
+        this.customerId = customerId;
+        this.balance = balance;
+        this.name = name;
     }
 
     public int getId() {
@@ -41,5 +50,24 @@ public class Currency {
 
     public void setAccountId(UUID accountId) {
         this.accountId = accountId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Currency{" +
+                "id=" + id +
+                ", accountId=" + accountId +
+                ", customerId=" + customerId +
+                ", balance=" + balance +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
