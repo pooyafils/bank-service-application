@@ -24,9 +24,10 @@ import java.util.UUID;
 public class BankCustomerController {
     @Autowired
     private RabbitTemplate template;
-
+    @Autowired
+    CurrencyRepository currencyRepository;
     @PostMapping
-    public ResponseEntity<String> createCoustomer( String customerId,String country,String [] currencies){
+    public ResponseEntity createCoustomer( String customerId,String country,String [] currencies){
         Customer customer=new Customer();
         List<Currency> currencyList=new ArrayList<>();
         customer.setCustomerId(UUID.fromString(customerId));
@@ -42,6 +43,7 @@ public class BankCustomerController {
         }
         customer.setCurrencies(currencyList);
         template.convertAndSend(Constants.EXCHANGE_1, Constants.ROUTING_KEY_1,customer);
-        return new ResponseEntity<>("ok", HttpStatus.CREATED);
+        List<Currency> currencies1=currencyRepository.findByCustomerId(UUID.fromString(customerId));
+        return new ResponseEntity(currencies1, HttpStatus.CREATED);
     }
 }
