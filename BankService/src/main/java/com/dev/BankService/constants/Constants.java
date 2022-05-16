@@ -1,4 +1,4 @@
-package com.dev.BankClient.constants;
+package com.dev.BankService.constants;
 
 public class Constants {
 

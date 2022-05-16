@@ -1,25 +1,30 @@
-package com.dev.BankClient.model;
+package com.dev.BankService.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jdk.jfr.Enabled;
 
+
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
-
+@Entity
 public class Customer {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private UUID customerId;
-    private List<Currency> currencies;
     private String country;
-
+    @OneToMany(mappedBy ="customer", cascade=CascadeType.ALL,fetch = FetchType.EAGER )
+    private List<Currency> currencies;
     public Customer() {
     }
 
-    public Customer(int id, UUID customerId, List<Currency> currencies, String country) {
+    public Customer(int id, UUID customerId, String country, List<Currency> currencies) {
         this.id = id;
         this.customerId = customerId;
-        this.currencies = currencies;
         this.country = country;
+        this.currencies = currencies;
     }
 
     public int getId() {
@@ -41,7 +46,6 @@ public class Customer {
     public List<Currency> getCurrencies() {
         return currencies;
     }
-
     public void setCurrencies(List<Currency> currencies) {
         this.currencies = currencies;
     }
@@ -54,13 +58,5 @@ public class Customer {
         this.country = country;
     }
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", customerId=" + customerId +
-                ", currencies=" + currencies +
-                ", country='" + country + '\'' +
-                '}';
-    }
+
 }
