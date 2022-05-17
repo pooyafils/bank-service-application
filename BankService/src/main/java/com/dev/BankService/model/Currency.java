@@ -2,6 +2,7 @@ package com.dev.BankService.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 @Entity
 public class Currency {
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
