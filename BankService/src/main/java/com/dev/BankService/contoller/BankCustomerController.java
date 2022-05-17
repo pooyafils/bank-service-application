@@ -26,6 +26,8 @@ import java.util.UUID;
 public class BankCustomerController {
 @Autowired
     BankCustomerService bankCustomerService;
+@Autowired
+RabbitTemplate rabbitTemplate;
     @PostMapping
     public ResponseEntity createCustomer( String customerId,String country,String [] currencies){
  List<Currency> currenciesList=bankCustomerService.createCustomer(customerId,country,currencies);
@@ -35,5 +37,12 @@ public class BankCustomerController {
     public ResponseEntity getCustomerAccount(@RequestParam String AccountId){
         Currency currency=bankCustomerService.getCustomerAccount(AccountId);
         return new ResponseEntity(currency,HttpStatus.OK);
+    }
+    @GetMapping("/t")
+    public ResponseEntity test2thQueue(){
+        Customer customer=new Customer();
+        customer.setId(1);
+        rabbitTemplate.convertAndSend("exchange-2","routingKey-2",customer);
+        return new ResponseEntity("ok",HttpStatus.OK);
     }
 }
