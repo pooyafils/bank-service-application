@@ -19,7 +19,7 @@ public class Currency {
     private double balance;
     private String name;
     @JsonBackReference
-  @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_info")
     private Customer customer;
 

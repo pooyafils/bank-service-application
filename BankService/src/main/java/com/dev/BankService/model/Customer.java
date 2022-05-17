@@ -1,6 +1,7 @@
 package com.dev.BankService.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jdk.jfr.Enabled;
 
 
@@ -15,6 +16,7 @@ public class Customer {
     private int id;
     private UUID customerId;
     private String country;
+    @JsonManagedReference
     @OneToMany(mappedBy ="customer", cascade=CascadeType.ALL,fetch = FetchType.EAGER )
     private List<Currency> currencies;
     public Customer() {
