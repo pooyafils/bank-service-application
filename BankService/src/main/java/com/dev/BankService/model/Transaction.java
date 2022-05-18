@@ -87,4 +87,17 @@ public class Transaction {
     public void setBalanceAfterTransaction(double balanceAfterTransaction) {
         this.balanceAfterTransaction = balanceAfterTransaction;
     }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", accountId=" + accountId +
+                ", transactionId=" + transactionId +
+                ", amount=" + amount +
+                ", directionOfTransaction='" + directionOfTransaction + '\'' +
+                ", description='" + description + '\'' +
+                ", balanceAfterTransaction=" + balanceAfterTransaction +
+                '}';
+    }
 }

@@ -1,9 +1,11 @@
 package com.dev.BankService.service;
 
+import com.dev.BankService.constants.Constants;
 import com.dev.BankService.exception.CustomExceptions;
 import com.dev.BankService.model.Currency;
 import com.dev.BankService.model.Transaction;
 import com.dev.BankService.repository.*;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +23,9 @@ public class TransactionService {
     DirectionOfTransactionRepository directionOfTransactionRepository;
 @Autowired
     TransactionRepository transactionRepository;
-
-    public void postTransaction(String accountId, double amount, String currency, String directionOfTransaction, String description) {
+    @Autowired
+    private RabbitTemplate template;
+    public Transaction postTransaction(String accountId, double amount, String currency, String directionOfTransaction, String description) {
         if (currencyRepository.findByAccountId(UUID.fromString(accountId)) == null) {
             throw new CustomExceptions("account missing");
         }
@@ -42,7 +45,6 @@ public class TransactionService {
         transaction.setAmount(amount);
         transaction.setDescription(description);
         transaction.setDirectionOfTransaction(directionOfTransaction);
-        System.out.println(transaction.toString());
         Currency currencyAccount=currencyRepository.findByAccountIdAndName(UUID.fromString(accountId),currency);
         System.out.println(directionOfTransaction);
         if(directionOfTransaction.equals("IN")){
@@ -57,10 +59,13 @@ public class TransactionService {
            currencyAccount.setBalance(currencyAccount.getBalance()-amount);
 
        }
-       System.out.println(currencyAccount.getBalance());
-       currencyRepository.save(currencyAccount);
-       transaction.setBalanceAfterTransaction(currencyAccount.getBalance());
-        transactionRepository.save(transaction);
+      // currencyRepository.save(currencyAccount);
+        template.convertAndSend(Constants.EXCHANGE_3, Constants.ROUTING_KEY_3,currencyAccount);
 
+        transaction.setBalanceAfterTransaction(currencyAccount.getBalance());
+       // transactionRepository.save(transaction);
+        System.out.println(transaction);
+        template.convertAndSend(Constants.EXCHANGE_2, Constants.ROUTING_KEY_2,transaction);
+        return transaction;
     }
 }

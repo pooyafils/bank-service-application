@@ -38,11 +38,5 @@ RabbitTemplate rabbitTemplate;
         Currency currency=bankCustomerService.getCustomerAccount(AccountId);
         return new ResponseEntity(currency,HttpStatus.OK);
     }
-    @GetMapping("/t")
-    public ResponseEntity test2thQueue(){
-        Customer customer=new Customer();
-        customer.setId(1);
-        rabbitTemplate.convertAndSend("exchange-2","routingKey-2",customer);
-        return new ResponseEntity("ok",HttpStatus.OK);
-    }
+
 }

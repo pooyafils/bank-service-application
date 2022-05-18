@@ -26,6 +26,10 @@ public class MessegingConfig {
 	public Queue queueTwo() {
 		return new Queue(Constants.QUEUE_2);
 	}
+	@Bean
+	public Queue queueThree() {
+		return new Queue(Constants.QUEUE_3);
+	}
 
 	@Bean
 	public TopicExchange topicExchange() {
@@ -35,6 +39,10 @@ public class MessegingConfig {
 	public TopicExchange topicExchangeTwo() {
 		return new TopicExchange(Constants.EXCHANGE_2);
 	}
+	@Bean
+	public TopicExchange topicExchangeThree() {
+		return new TopicExchange(Constants.EXCHANGE_3);
+	}
 
 	@Bean
 	public Binding binding(Queue queue, @Qualifier("topicExchange") TopicExchange exchange) {
@@ -43,6 +51,10 @@ public class MessegingConfig {
 	@Bean
 	public Binding bindingTransactions() {
 		return BindingBuilder.bind(queueTwo()).to(topicExchangeTwo()).with(Constants.ROUTING_KEY_2);
+	}
+	@Bean
+	public Binding bindingCurrency() {
+		return BindingBuilder.bind(queueThree()).to(topicExchangeThree()).with(Constants.ROUTING_KEY_3);
 	}
 	@Bean
 	public MessageConverter converter() {

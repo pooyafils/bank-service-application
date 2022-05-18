@@ -10,4 +10,7 @@ public class Constants {
 	public static final String EXCHANGE_2 = "exchange-2";
 	public static final String ROUTING_KEY_2 = "routingKey-2";
 
+	public static final String QUEUE_3 = "currencyQueue";
+	public static final String EXCHANGE_3 = "exchange-3";
+	public static final String ROUTING_KEY_3 = "routingKey-3";
 }
