@@ -21,11 +21,11 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(int id, UUID accountId,
-                       double amount, String directionOfTransaction, String description, double balanceAfterTransaction) {
+    public Transaction(int id, UUID accountId, UUID transactionId, double amount,
+                       String directionOfTransaction, String description, double balanceAfterTransaction) {
         this.id = id;
         this.accountId = accountId;
-        this.transactionId =UUID.randomUUID();
+        this.transactionId = transactionId;
         this.amount = amount;
         this.directionOfTransaction = directionOfTransaction;
         this.description = description;

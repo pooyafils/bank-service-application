@@ -11,4 +11,5 @@ import java.util.UUID;
 public interface CurrencyRepository extends JpaRepository<Currency,Integer> {
     List<Currency> findByCustomerId(UUID uuid);
     Currency findByAccountId(UUID uuid);
+    Currency findByAccountIdAndName(UUID uuids,String name);
 }
