@@ -9,6 +9,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -67,5 +68,12 @@ public class TransactionService {
         System.out.println(transaction);
         template.convertAndSend(Constants.EXCHANGE_2, Constants.ROUTING_KEY_2,transaction);
         return transaction;
+    }
+    public List<Transaction> getTransactions(String accountId){
+        if(transactionRepository.findByAccountId(UUID.fromString(accountId)).size()<=0){
+            throw new CustomExceptions("Invalid account");
+        }
+        List<Transaction> transactions=transactionRepository.findByAccountId(UUID.fromString(accountId));
+        return transactions;
     }
 }

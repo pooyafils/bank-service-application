@@ -1,5 +1,7 @@
 package com.dev.BankService.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +10,7 @@ import java.util.UUID;
 
 @Entity
 public class Transaction {
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
