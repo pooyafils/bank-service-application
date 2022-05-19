@@ -27,9 +27,10 @@ class BankCustomerServiceTest {
 @Autowired
         BankCustomerService bankCustomerService;
     Currency currency;
-    String accountId="29bd810a-d6f0-11ec-9d64-0242ac120002";
-    String customerId="80289b74-d6f0-11ec-9d64-0242ac120002";
-
+    String accountId="30bd810a-d6f0-11ec-9d64-0242ac120002";
+    String customerId="83289b74-d6f0-11ec-9d64-0242ac120002";
+    String customerIdCreate="6d2a5ef8-d74c-11ec-9d64-0242ac120002";
+    String [] currencies={"EUR","USD"};
     @BeforeEach
     void setUp() {
         currency=new Currency();
@@ -43,10 +44,13 @@ class BankCustomerServiceTest {
 
     @Test
     void createCustomer() {
+        List<Currency> currencyList=bankCustomerService.createCustomer(customerIdCreate,"france",currencies);
+        assertEquals(2,currencyList.size());
+        assertNotNull(currencyList);
     }
 
     @ParameterizedTest()
-    @ValueSource(strings = "29bd810a-d6f0-11ec-9d64-0242ac120002")
+    @ValueSource(strings = "30bd810a-d6f0-11ec-9d64-0242ac120002")
     public void getCustomerAccount(String accountId) {
         Currency currency= new Currency();
         currency=currencyRepository.findByAccountId(UUID.fromString(accountId));
