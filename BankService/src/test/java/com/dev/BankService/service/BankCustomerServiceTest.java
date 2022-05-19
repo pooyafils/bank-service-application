@@ -29,7 +29,7 @@ class BankCustomerServiceTest {
     Currency currency;
     String accountId="30bd810a-d6f0-11ec-9d64-0242ac120002";
     String customerId="83289b74-d6f0-11ec-9d64-0242ac120002";
-    String customerIdCreate="9d2a5ef8-d74c-11ec-9d64-0242ac120002";
+    String customerIdCreate="9d2a0ef8-d74c-11ec-9d64-0242ac120002";
     String [] currencies={"EUR","USD"};
     @BeforeEach
     void setUp() {
